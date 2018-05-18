@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+buildscript {
+    configure([buildscript.repositories, project.repositories]) {
+        mavenLocal()
+        maven {
+            url "${artifactory_contextUrl}${artifactory_resolver_repo}"
+            credentials {
+                username = "${artifactory_user}"
+                password = "${artifactory_password}"
+            }
+        }
+        mavenCentral()
+        maven {
+            name "spring-releases"
+            url "https://repo.spring.io/milestone"
+        }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+}
+
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
